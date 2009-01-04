@@ -79,6 +79,15 @@ class TwitterspyMessageProtocol(MessageProtocol):
         self._pubid += 1
         return prefix + str(self._pubid)
 
+    def ping(self, jid):
+        msg="""<iq from='%s'
+    to='%sjuliet@capulet.lit/chamber'
+    type='get'
+    id='%s'>
+  <ping xmlns='urn:xmpp:ping'/>
+</iq>""" % (config.SCREEN_NAME, jid, self._gen_id('ping'))
+        self.send(msg)
+
     def publish_mood(self, mood, text):
         msg="""<iq from='%s'
     id='%s'
